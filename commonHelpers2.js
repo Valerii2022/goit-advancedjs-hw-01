@@ -1,0 +1,2 @@
+import"./assets/modulepreload-polyfill-ec808ebb.js";/* empty css                      */import{P as o,l as r}from"./assets/vendor-78be7656.js";const n=document.querySelector("iframe"),t=new o(n),a=e=>{localStorage.setItem("videoplayer-current-time",e.seconds)};t.on("timeupdate",r(a,1e3));const c=JSON.parse(localStorage.getItem("videoplayer-current-time"));t.setCurrentTime(c).then(function(e){console.log(e)}).catch(function(e){console.log(e.name)});
+//# sourceMappingURL=commonHelpers2.js.map
