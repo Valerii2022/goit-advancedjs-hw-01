@@ -6,22 +6,16 @@ const formRef = document.querySelector('.feedback-form');
 
 const LOCALSTORAGE_FORM_KEY = 'feedback-form-state';
 
-const currentUserInfo = JSON.parse(localStorage.getItem(LOCALSTORAGE_FORM_KEY));
-const userInfo = currentUserInfo || { name: '', message: '' };
+const userInfo = JSON.parse(localStorage.getItem(LOCALSTORAGE_FORM_KEY)) || {};
 
-emailRef.value = userInfo.name;
-messageRef.value = userInfo.message;
+emailRef.value = userInfo.email || '';
+messageRef.value = userInfo.message || '';
 
 emailRef.required = true;
 messageRef.required = true;
 
-const handleEmailInputChange = e => {
-  userInfo.name = e.target.value;
-  localStorage.setItem(LOCALSTORAGE_FORM_KEY, JSON.stringify(userInfo));
-};
-
-const handleMessagelInputChange = e => {
-  userInfo.message = e.target.value;
+const handleFormChange = e => {
+  userInfo[e.target.name] = e.target.value;
   localStorage.setItem(LOCALSTORAGE_FORM_KEY, JSON.stringify(userInfo));
 };
 
@@ -30,8 +24,9 @@ const handleSubmitForm = e => {
   console.log(userInfo);
   localStorage.removeItem(LOCALSTORAGE_FORM_KEY);
   formRef.reset();
+  userInfo.email = '';
+  userInfo.message = '';
 };
 
-emailRef.addEventListener('input', throttle(handleEmailInputChange, 500));
-messageRef.addEventListener('input', throttle(handleMessagelInputChange, 500));
+formRef.addEventListener('input', throttle(handleFormChange, 500));
 formRef.addEventListener('submit', handleSubmitForm);
